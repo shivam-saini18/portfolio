@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Shivam Saini | Portfolio</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+  <script src="https://unpkg.com/scrollreveal"></script>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="shortcut icon" href="assets/icon.jpg" type="image/x-icon" />
+</head>
+
+<body>
+  <div class="container">
+
+    <nav id="header">
+      <div class="nav-logo">
+        <p class="nav-name">Shivam Saini</p>
+      </div>
+
+      <div class="nav-menu" id="myNavMenu">
+        <ul class="nav_menu_list">
+          <li class="nav_list">
+            <a href="#home" class="nav-link active-link">Home</a>
+          </li>
+          <li class="nav_list">
+            <a href="#about" class="nav-link">About</a>
+          </li>
+          <li class="nav_list">
+            <a href="#projects" class="nav-link">Projects</a>
+          </li>
+          <li class="nav_list">
+            <a href="#contact" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-menu-btn">
+        <i class="uil uil-bars" onclick="myMenuFunction()"></i>
+      </div>
+
+      <div class="nav-darkmode-btn">
+        <i id="darkModeToggle" class="uil uil-moon"></i>
+      </div>
+    </nav>
+
+    <main class="wrapper">
+
+      <section class="featured-box" id="home">
+        <div class="featured-text">
+          <div class="featured-text-card">
+            <span>Shivam Saini</span>
+          </div>
+
+          <div class="featured-name">
+            <p>I'm <span class="typedText"></span></p>
+          </div>
+
+          <div class="featured-text-info">
+            <p>
+              Mern stack Developer passionate about building modern,
+              responsive, and scalable web applications.
+            </p>
+          </div>
+
+          <div class="featured-text-btn">
+            <button id="openGoogleBtn" class="btn blue-btn">Hire Me</button>
+          </div>
+
+          <div class="social_icons">
+        
+            <div class="icon">
+              <a href="https://www.linkedin.com/in/shivamsaini18?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+                <i class="uil uil-linkedin-alt"></i>
+              </a>
+              <span class="icon-text">LinkedIn</span>
+            </div>
+
+            <div class="icon">
+              <a href="https://github.com/shivam-saini18" target="_blank">
+                <i class="uil uil-github-alt"></i>
+              </a>
+              <span class="icon-text">GitHub</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="featured-image">
+          <div class="image">
+            <img src="image.png" alt="Simranjit" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="top-header">
+          <h1>About Me</h1>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="about-info">
+              <h3>My Introduction</h3>
+              <p>
+                Hi, I'm <b>Shivam Saini</b>, a Mern Stack Developer with strong
+                skills in HTML, CSS, JavaScript, React, Node.js, and databases.
+                I love building clean, fast, and user-friendly web experiences.
+              </p>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="skills-box">
+              <h3>Frontend</h3>
+              <div class="skills-list">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>React</span>
+              </div>
+            </div>
+
+            <div class="skills-box">
+              <h3>Backend</h3>
+              <div class="skills-list">
+                <span>Node.js</span>
+                <span>PHP</span>
+                <span>Java</span>
+              </div>
+            </div>
+
+            <div class="skills-box">
+              <h3>Database</h3>
+              <div class="skills-list">
+                <span>MySQL</span>
+                <span>MongoDB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="top-header">
+          <h1>Projects</h1>
+        </div>
+        <div class="project-container">
+
+  <div class="project-box">
+    <i class="uil uil-music"></i>
+    <h3>Spotify Clone</h3>
+    <label>
+      Music streaming UI clone using HTML, CSS.
+      <br />
+      <a href=" https://shivam-saini18.github.io/spotify-clone/" target="_blank">
+        Live Demo
+      </a>
+      |
+      <a href="https://github.com/shivam-saini18/spotify-clone" target="_blank">
+        GitHub
+      </a>
+    </label>
+  </div>
+
+  <div class="project-box">
+    <i class="uil uil-game-structure"></i>
+    <h3>Simon Says Game</h3>
+    <label>
+      Memory-based interactive game using JavaScript
+      <br />
+      <a href=" https://shivam-saini18.github.io/simon-says-game/" target="_blank">
+        Live Demo
+      </a>
+      |
+      <a href="https://github.com/shivam-saini18/simon-says-game" target="_blank">
+        GitHub
+      </a>
+    </label>
+  </div>
+
+</div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="top-header">
+          <h1>Contact Me</h1>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="contact-info">
+              <h2>Get In Touch</h2>
+              <p><i class="uil uil-envelope"></i> shivamsaini@example.com</p>
+              <p><i class="uil uil-phone"></i> +91 XXXXXXXXXX</p>
+            </div>
+          </div>
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2025 shivamsaini | All Rights Reserved</p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
