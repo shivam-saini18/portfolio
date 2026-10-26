@@ -1,143 +1,79 @@
-  //  NAVIGATION MENU TOGGLE
-function myMenuFunction() {
-  const menu = document.getElementById("myNavMenu");
-  menu.classList.toggle("responsive");
-}
+(() => {
+  const root = document.documentElement;
+  const themeToggle = document.querySelector('.theme-toggle');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  const navAnchors = [...document.querySelectorAll('.nav-links a[href^="#"]')];
 
-  //  NAVBAR SHADOW ON SCROLL
-function headerShadow() {
-  const navHeader = document.getElementById("header");
+  // Respect a saved preference; otherwise use the operating system preference.
+  let savedTheme = null;
+  try {
+    savedTheme = localStorage.getItem('portfolio-theme');
+  } catch (_) {
+    // Theme switching still works for this session when storage is unavailable.
+  }
+  if (!savedTheme) {
+    root.dataset.theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+  const updateThemeButton = () => {
+    const isLight = root.dataset.theme === 'light';
+    themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+    themeToggle.setAttribute('title', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+  };
+  updateThemeButton();
+  themeToggle.addEventListener('click', () => {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try {
+      localStorage.setItem('portfolio-theme', root.dataset.theme);
+    } catch (_) {
+      // Keep the selected theme for the current page session.
+    }
+    updateThemeButton();
+  });
 
-  if (window.scrollY > 50) {
-    navHeader.style.boxShadow = "0 1px 6px rgba(0, 0, 0, 0.1)";
-    navHeader.style.height = "70px";
-    navHeader.style.lineHeight = "70px";
+  menuToggle.addEventListener('click', () => {
+    const open = menuToggle.getAttribute('aria-expanded') !== 'true';
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    navLinks.classList.toggle('open', open);
+  });
+  navAnchors.forEach(link => link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Open navigation');
+  }));
+
+  // Reveal elements when they enter the viewport; no continuous scroll handler.
+  const revealItems = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
+    revealItems.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index % 4, 3) * 65}ms`;
+      observer.observe(item);
+    });
   } else {
-    navHeader.style.boxShadow = "none";
-    navHeader.style.height = "90px";
-    navHeader.style.lineHeight = "90px";
-  }
-}
-
-window.addEventListener("scroll", headerShadow);
-
-  //  TYPING EFFECT 
-if (typeof Typed !== "undefined") {
-  new Typed(".typedText", {
-    strings: ["MERN stack Developer", "Software Developer"],
-    loop: true,
-    typeSpeed: 100,
-    backSpeed: 80,
-    backDelay: 2000,
-  });
-}
-
-  //  SCROLL REVEAL ANIMATIONS
-if (typeof ScrollReveal !== "undefined") {
-  const sr = ScrollReveal({
-    origin: "top",
-    distance: "80px",
-    duration: 2000,
-    reset: false,
-  });
-
-  /* HOME */
-  sr.reveal(".featured-text-card");
-  sr.reveal(".featured-name", { delay: 100 });
-  sr.reveal(".featured-text-info", { delay: 200 });
-  sr.reveal(".featured-text-btn", { delay: 200 });
-  sr.reveal(".social_icons", { delay: 200 });
-  sr.reveal(".featured-image", { delay: 300 });
-
-  /* PROJECTS */
-  sr.reveal(".project-box", { interval: 200 });
-
-  /* HEADERS */
-  sr.reveal(".top-header");
-
-  /* LEFT */
-  const srLeft = ScrollReveal({
-    origin: "left",
-    distance: "80px",
-    duration: 2000,
-    reset: false,
-  });
-
-  srLeft.reveal(".about-info", { delay: 100 });
-  srLeft.reveal(".contact-info", { delay: 100 });
-
-  /* RIGHT */
-  const srRight = ScrollReveal({
-    origin: "right",
-    distance: "80px",
-    duration: 2000,
-    reset: false,
-  });
-
-  srRight.reveal(".skills-box", { delay: 100 });
-  srRight.reveal(".form-control", { delay: 100 });
-}
-
-
-  //  ACTIVE NAV LINK ON SCROLL
-const sections = document.querySelectorAll("section[id]");
-
-function scrollActive() {
-  const scrollY = window.scrollY;
-
-  sections.forEach((section) => {
-    const sectionHeight = section.offsetHeight;
-    const sectionTop = section.offsetTop - 60;
-    const sectionId = section.getAttribute("id");
-
-    const link = document.querySelector(
-      `.nav-menu a[href*="${sectionId}"]`
-    );
-
-    if (link) {
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        link.classList.add("active-link");
-      } else {
-        link.classList.remove("active-link");
-      }
-    }
-  });
-}
-
-window.addEventListener("scroll", scrollActive);
-
-  //  HIRE ME BUTTON
-const hireBtn = document.getElementById("openGoogleBtn");
-if (hireBtn) {
-  hireBtn.addEventListener("click", () => {
-    window.open("https://www.linkedin.com/in/shivamsaini18?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", "_blank");
-  });
-}
-
-  //  DARK MODE TOGGLE (WITH STORAGE)
-document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("darkModeToggle");
-  const body = document.body;
-
-  if (!toggle) return;
-
-  // Load saved mode
-  if (localStorage.getItem("dark-mode") === "enabled") {
-    body.classList.add("dark-mode");
-    toggle.classList.replace("uil-moon", "uil-sun");
+    revealItems.forEach(item => item.classList.add('is-visible'));
   }
 
-  toggle.addEventListener("click", () => {
-    body.classList.toggle("dark-mode");
-    toggle.classList.toggle("rotate");
+  // Highlight the current section in the navigation.
+  if ('IntersectionObserver' in window) {
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navAnchors.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+        }
+      });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+    sections.forEach(section => sectionObserver.observe(section));
+  }
 
-    if (body.classList.contains("dark-mode")) {
-      toggle.classList.replace("uil-moon", "uil-sun");
-      localStorage.setItem("dark-mode", "enabled");
-    } else {
-      toggle.classList.replace("uil-sun", "uil-moon");
-      localStorage.setItem("dark-mode", "disabled");
-    }
-  });
-});
-
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
